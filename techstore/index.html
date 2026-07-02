@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NEXUS TECH — Компьютеры и комплектующие</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- ========== NOTIFICATION ========== -->
+<div id="notification" class="notification">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+  <span id="notification-text">Товар добавлен в корзину</span>
+</div>
+
+<!-- ========== HEADER ========== -->
+<header class="header" id="header">
+  <div class="container header-inner">
+    <a href="#" class="logo" onclick="showPage('home')">
+      <svg class="logo-icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <rect width="32" height="32" rx="8" fill="url(#lg1)"/>
+        <path d="M8 10h16M8 16h10M8 22h13" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+        <circle cx="24" cy="22" r="3" fill="#00f5a0"/>
+        <defs><linearGradient id="lg1" x1="0" y1="0" x2="32" y2="32"><stop stop-color="#0d1117"/><stop offset="1" stop-color="#1a2332"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">NEXUS<span class="logo-accent">TECH</span></span>
+    </a>
+
+    <nav class="nav" id="nav">
+      <a href="#" class="nav-link" onclick="showPage('home'); closeMenu()">Главная</a>
+      <a href="#" class="nav-link" onclick="showPage('catalog'); closeMenu()">Каталог</a>
+      <a href="#" class="nav-link" onclick="scrollToSection('about'); closeMenu()">О нас</a>
+      <a href="#" class="nav-link" onclick="scrollToSection('faq'); closeMenu()">FAQ</a>
+      <a href="#" class="nav-link" onclick="scrollToSection('contacts'); closeMenu()">Контакты</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="search-btn" onclick="toggleSearch()" aria-label="Поиск">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </button>
+      <button class="cart-btn" onclick="showPage('cart')" aria-label="Корзина">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-badge" id="cart-badge">0</span>
+      </button>
+      <button class="burger" id="burger" onclick="toggleMenu()" aria-label="Меню">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="search-bar" id="search-bar">
+    <div class="container">
+      <input type="text" id="search-input" placeholder="Найти товар..." oninput="handleSearch(this.value)" />
+      <button onclick="toggleSearch()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ========== PAGE: HOME ========== -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-grid"></div>
+      <div class="hero-glow"></div>
+    </div>
+    <div class="container hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Новые поступления 2024
+      </div>
+      <h1 class="hero-title">
+        Мощные компьютеры<br />
+        <span class="hero-title-accent">для любых задач</span>
+      </h1>
+      <p class="hero-desc">Игры, работа, бизнес — найдите идеальное решение в нашем каталоге. Гарантия, сервис, доставка по всему городу.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" onclick="showPage('catalog')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Смотреть каталог
+        </button>
+        <button class="btn btn-outline" onclick="showPage('catalog'); filterCatalog('gaming')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 12h4m-2-2v4M15 11h.01M18 11h.01"/><rect x="2" y="6" width="20" height="12" rx="2"/></svg>
+          Собрать ПК
+        </button>
+        <button class="btn btn-ghost" onclick="scrollToSection('promo')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+          Акции
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">2000+</span><span class="stat-label">Товаров</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">15 лет</span><span class="stat-label">На рынке</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">50 000+</span><span class="stat-label">Клиентов</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-pc-art">
+        <svg viewBox="0 0 400 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Monitor -->
+          <rect x="80" y="40" width="240" height="160" rx="10" fill="#0d1f35" stroke="#1e3a5f" stroke-width="2"/>
+          <rect x="90" y="50" width="220" height="140" rx="6" fill="#060d18"/>
+          <!-- Screen content -->
+          <rect x="100" y="60" width="200" height="8" rx="4" fill="#00f5a0" opacity="0.6"/>
+          <rect x="100" y="76" width="140" height="5" rx="2.5" fill="#1e3a5f"/>
+          <rect x="100" y="88" width="170" height="5" rx="2.5" fill="#1e3a5f"/>
+          <rect x="100" y="100" width="120" height="5" rx="2.5" fill="#1e3a5f"/>
+          <rect x="180" y="116" width="110" height="60" rx="6" fill="#0a1929" stroke="#00f5a0" stroke-width="1.5" stroke-opacity="0.5"/>
+          <rect x="190" y="124" width="70" height="5" rx="2.5" fill="#00f5a0" opacity="0.7"/>
+          <rect x="190" y="134" width="90" height="4" rx="2" fill="#1e3a5f"/>
+          <rect x="190" y="144" width="80" height="4" rx="2" fill="#1e3a5f"/>
+          <rect x="190" y="156" width="50" height="16" rx="4" fill="#00f5a0"/>
+          <rect x="100" y="116" width="70" height="70" rx="6" fill="#0a1929" stroke="#1e3a5f" stroke-width="1.5"/>
+          <circle cx="135" cy="151" r="18" fill="#0d1f35" stroke="#00f5a0" stroke-width="1.5" stroke-opacity="0.7"/>
+          <path d="M127 151 l5-5 5 5 5-5" stroke="#00f5a0" stroke-width="1.5" stroke-linecap="round" stroke-opacity="0.8"/>
+          <!-- Stand -->
+          <rect x="180" y="200" width="40" height="20" rx="2" fill="#0d1f35" stroke="#1e3a5f" stroke-width="1.5"/>
+          <rect x="155" y="218" width="90" height="8" rx="4" fill="#0d1f35" stroke="#1e3a5f" stroke-width="1.5"/>
+          <!-- Keyboard -->
+          <rect x="90" y="240" width="220" height="40" rx="6" fill="#0a1929" stroke="#1e3a5f" stroke-width="1.5"/>
+          <rect x="100" y="248" width="12" height="8" rx="2" fill="#1e3a5f"/>
+          <rect x="116" y="248" width="12" height="8" rx="2" fill="#1e3a5f"/>
+          <rect x="132" y="248" width="12" height="8" rx="2" fill="#1e3a5f"/>
+          <rect x="148" y="248" width="12" height="8" rx="2" fill="#1e3a5f"/>
+          <rect x="164" y="248" width="12" height="8" rx="2" fill="#00f5a0" opacity="0.8"/>
+          <rect x="180" y="248" width="12" height="8" rx="2" fill="#1e3a5f"/>
+          <rect x="196" y="248" width="12" height="8" rx="2" fill="#1e3a5f"/>
+          <rect x="212" y="248" width="12" height="8" rx="2" fill="#1e3a5f"/>
+          <rect x="228" y="248" width="12" height="8" rx="2" fill="#1e3a5f"/>
+          <rect x="244" y="248" width="12" height="8" rx="2" fill="#00f5a0" opacity="0.5"/>
+          <rect x="116" y="262" width="160" height="8" rx="2" fill="#1e3a5f"/>
+          <!-- Decorative lines -->
+          <line x1="340" y1="60" x2="380" y2="60" stroke="#00f5a0" stroke-width="1.5" stroke-opacity="0.3"/>
+          <line x1="350" y1="60" x2="350" y2="120" stroke="#00f5a0" stroke-width="1.5" stroke-opacity="0.2"/>
+          <circle cx="350" cy="120" r="4" fill="#00f5a0" fill-opacity="0.4"/>
+          <line x1="20" y1="200" x2="60" y2="200" stroke="#00f5a0" stroke-width="1.5" stroke-opacity="0.3"/>
+          <line x1="40" y1="140" x2="40" y2="200" stroke="#00f5a0" stroke-width="1.5" stroke-opacity="0.2"/>
+          <circle cx="40" cy="140" r="4" fill="#00f5a0" fill-opacity="0.4"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROMO BANNERS -->
+  <section class="promo-section" id="promo">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Специальные предложения</h2>
+        <p class="section-sub">Лучшие цены на топовые позиции</p>
+      </div>
+      <div class="promo-grid">
+        <div class="promo-card promo-gaming" onclick="showPage('catalog'); filterCatalog('gaming')">
+          <div class="promo-content">
+            <span class="promo-tag">Хит продаж</span>
+            <h3>Игровые ПК</h3>
+            <p>RTX 4080 + i9-13900K<br/>Максимальная мощность</p>
+            <span class="promo-price">от 180 000 ₽</span>
+            <button class="btn btn-sm">Смотреть</button>
+          </div>
+          <div class="promo-decor promo-decor-1"></div>
+        </div>
+        <div class="promo-card promo-laptop" onclick="showPage('catalog'); filterCatalog('laptop')">
+          <div class="promo-content">
+            <span class="promo-tag">Новинки</span>
+            <h3>Ноутбуки</h3>
+            <p>Мобильность без<br/>компромиссов</p>
+            <span class="promo-price">от 65 000 ₽</span>
+            <button class="btn btn-sm">Смотреть</button>
+          </div>
+          <div class="promo-decor promo-decor-2"></div>
+        </div>
+        <div class="promo-card promo-gpu" onclick="showPage('catalog'); filterCatalog('gpu')">
+          <div class="promo-content">
+            <span class="promo-tag">–15%</span>
+            <h3>Видеокарты</h3>
+            <p>GeForce RTX & Radeon RX<br/>Скидки до 15%</p>
+            <span class="promo-price">от 25 000 ₽</span>
+            <button class="btn btn-sm">Смотреть</button>
+          </div>
+          <div class="promo-decor promo-decor-3"></div>
+        </div>
+        <div class="promo-card promo-sale" onclick="showPage('catalog')">
+          <div class="promo-content">
+            <span class="promo-tag promo-tag-hot">Акция</span>
+            <h3>Распродажа</h3>
+            <p>Скидки до 40% на<br/>комплектующие</p>
+            <span class="promo-price">Только сейчас</span>
+            <button class="btn btn-sm">Все акции</button>
+          </div>
+          <div class="promo-decor promo-decor-4"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="categories-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Категории</h2>
+        <p class="section-sub">Выберите нужное направление</p>
+      </div>
+      <div class="categories-grid">
+        <div class="cat-card" onclick="showPage('catalog'); filterCatalog('gaming')">
+          <div class="cat-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h4m-2-2v4M15 11h.01M18 11h.01"/></svg>
+          </div>
+          <span>Игровые ПК</span>
+        </div>
+        <div class="cat-card" onclick="showPage('catalog'); filterCatalog('laptop')">
+          <div class="cat-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M2 20h20"/></svg>
+          </div>
+          <span>Ноутбуки</span>
+        </div>
+        <div class="cat-card" onclick="showPage('catalog'); filterCatalog('monitor')">
+          <div class="cat-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <span>Мониторы</span>
+        </div>
+        <div class="cat-card" onclick="showPage('catalog'); filterCatalog('gpu')">
+          <div class="cat-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3"/></svg>
+          </div>
+          <span>Видеокарты</span>
+        </div>
+        <div class="cat-card" onclick="showPage('catalog'); filterCatalog('cpu')">
+          <div class="cat-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3"/></svg>
+          </div>
+          <span>Процессоры</span>
+        </div>
+        <div class="cat-card" onclick="showPage('catalog'); filterCatalog('periphery')">
+          <div class="cat-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2M8 12h.01M12 12h.01M16 12h.01M8 16h.01M12 16h.01M16 16h.01"/></svg>
+          </div>
+          <span>Клавиатуры</span>
+        </div>
+        <div class="cat-card" onclick="showPage('catalog'); filterCatalog('periphery')">
+          <div class="cat-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a4 4 0 014 4v8a4 4 0 01-8 0V6a4 4 0 014-4z"/><path d="M12 18v4M8 22h8"/></svg>
+          </div>
+          <span>Мышки</span>
+        </div>
+        <div class="cat-card" onclick="showPage('catalog'); filterCatalog('accessories')">
+          <div class="cat-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+          </div>
+          <span>Аксессуары</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POPULAR PRODUCTS -->
+  <section class="products-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Популярные товары</h2>
+        <button class="btn btn-outline btn-sm" onclick="showPage('catalog')">Весь каталог →</button>
+      </div>
+      <div class="products-grid" id="popular-grid"></div>
+    </div>
+  </section>
+
+  <!-- NEW ARRIVALS -->
+  <section class="products-section products-section--alt">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Новинки</h2>
+        <button class="btn btn-outline btn-sm" onclick="showPage('catalog')">Смотреть все →</button>
+      </div>
+      <div class="products-grid" id="new-grid"></div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="why-section" id="about">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Почему выбирают нас</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h4>Гарантия качества</h4>
+          <p>Все товары сертифицированы. Официальная гарантия от 12 до 36 месяцев на каждый продукт.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h4>Быстрая доставка</h4>
+          <p>Доставка по городу в день заказа. Курьер привезёт в удобное для вас время.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013 5.18 2 2 0 015 3h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L9.91 10a16 16 0 006 6l.95-.75a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 17.38v-.46z"/></svg>
+          </div>
+          <h4>Бесплатная консультация</h4>
+          <p>Наши эксперты помогут подобрать идеальную конфигурацию под ваши задачи и бюджет.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+          <h4>Сервис и ремонт</h4>
+          <p>Собственный сервисный центр. Диагностика, ремонт и апгрейд любого оборудования.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          </div>
+          <h4>Лучшие цены</h4>
+          <p>Прямые контракты с производителями. Минимальная наценка. Мы бьём любые цены конкурентов.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <h4>Команда экспертов</h4>
+          <p>Более 50 специалистов с опытом от 5 лет. Знаем всё о железе и готовы поделиться.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="reviews-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Отзывы клиентов</h2>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-header">
+            <div class="review-avatar">АМ</div>
+            <div>
+              <strong>Алексей М.</strong>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+          <p>"Заказал игровой ПК — привезли в тот же день. Сборка профессиональная, всё работает отлично. Уже полгода играю без проблем!"</p>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <div class="review-avatar">ОК</div>
+            <div>
+              <strong>Ольга К.</strong>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+          <p>"Помогли подобрать ноутбук для работы в рамках бюджета. Менеджер всё объяснил, не навязывал лишнего. Очень довольна покупкой."</p>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <div class="review-avatar">ДС</div>
+            <div>
+              <strong>Дмитрий С.</strong>
+              <div class="stars">★★★★☆</div>
+            </div>
+          </div>
+          <p>"Купил видеокарту по хорошей цене, дали официальную гарантию. Сервис на уровне — быстро отвечают на вопросы."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Часто задаваемые вопросы</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Как оформить заказ?</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Добавьте товар в корзину, перейдите в корзину и нажмите «Оформить заказ». Заполните форму с контактными данными — менеджер свяжется с вами для подтверждения.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Какие способы оплаты доступны?</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Принимаем наличные при доставке, банковский перевод, онлайн-оплату картой, а также рассрочку на 0% на срок до 12 месяцев.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Какая гарантия на товары?</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Все товары имеют официальную гарантию производителя от 12 до 36 месяцев. На готовые сборки дополнительно предоставляем гарантию магазина 12 месяцев.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Сколько времени занимает доставка?</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>По городу — в день заказа или на следующий день. Доставка по России — 2–7 рабочих дней курьерской службой СДЭК или Почтой России.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Можно ли собрать ПК под заказ?</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Да! Мы собираем ПК под любые задачи и бюджет. Свяжитесь с нашими специалистами — они подберут оптимальные комплектующие и соберут систему с тестированием.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Как вернуть или обменять товар?</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer"><p>Принимаем возврат в течение 14 дней с момента покупки при наличии товарного вида и упаковки. Обмен и возврат по гарантии — в течение всего гарантийного срока.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="contacts">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="logo" onclick="showPage('home')">
+            <svg class="logo-icon" width="28" height="28" viewBox="0 0 32 32" fill="none">
+              <rect width="32" height="32" rx="8" fill="url(#lg2)"/>
+              <path d="M8 10h16M8 16h10M8 22h13" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+              <circle cx="24" cy="22" r="3" fill="#00f5a0"/>
+              <defs><linearGradient id="lg2" x1="0" y1="0" x2="32" y2="32"><stop stop-color="#0d1117"/><stop offset="1" stop-color="#1a2332"/></linearGradient></defs>
+            </svg>
+            <span class="logo-text">NEXUS<span class="logo-accent">TECH</span></span>
+          </a>
+          <p class="footer-desc">Профессиональный магазин компьютеров и комплектующих. Работаем с 2009 года.</p>
+          <div class="social-links">
+            <a href="#" class="social-link" aria-label="Telegram">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.88 13.47l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.268.089z"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="VKontakte">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.862-.523-2.046-1.709-1.033-1.003-1.49-.982-1.491-.982-.203 0-.26.058-.26.335v1.556c0 .24-.077.383-1.117.383-1.64 0-3.463-.994-4.745-2.846C6.04 11.51 5.57 9.46 5.57 9.025c0-.24.058-.464.335-.464h1.744c.25 0 .345.115.44.385.486 1.403 1.3 2.632 1.636 2.632.127 0 .185-.058.185-.377V9.4c-.038-.675-.394-.73-.394-.97 0-.115.09-.24.24-.24h2.743c.21 0 .286.11.286.36v3.065c0 .21.09.286.153.286.127 0 .235-.076.48-.317 1.485-1.662 2.544-4.227 2.544-4.227.077-.16.2-.31.463-.31h1.744c.526 0 .638.27.526.637-.22.77-2.288 3.913-2.288 3.913-.18.3-.24.44 0 .776.172.24.737.735 1.113 1.18.692.8 1.22 1.47 1.364 1.934.127.463-.096.697-.573.697z"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="WhatsApp">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h5>Каталог</h5>
+          <a href="#" onclick="showPage('catalog'); filterCatalog('gaming')">Игровые ПК</a>
+          <a href="#" onclick="showPage('catalog'); filterCatalog('laptop')">Ноутбуки</a>
+          <a href="#" onclick="showPage('catalog'); filterCatalog('monitor')">Мониторы</a>
+          <a href="#" onclick="showPage('catalog'); filterCatalog('gpu')">Видеокарты</a>
+          <a href="#" onclick="showPage('catalog'); filterCatalog('cpu')">Процессоры</a>
+          <a href="#" onclick="showPage('catalog'); filterCatalog('accessories')">Аксессуары</a>
+        </div>
+        <div class="footer-col">
+          <h5>Информация</h5>
+          <a href="#" onclick="scrollToSection('about')">О компании</a>
+          <a href="#" onclick="scrollToSection('faq')">FAQ</a>
+          <a href="#">Доставка и оплата</a>
+          <a href="#">Гарантия и возврат</a>
+          <a href="#">Сервисный центр</a>
+          <a href="#">Контакты</a>
+        </div>
+        <div class="footer-col">
+          <h5>Контакты</h5>
+          <!-- CHANGE_PHONE: замените номер телефона -->
+          <a href="tel:+78001234567">+7 (800) 123-45-67</a>
+          <!-- CHANGE_EMAIL: замените email -->
+          <a href="mailto:info@nexustech.ru">info@nexustech.ru</a>
+          <!-- CHANGE_ADDRESS: замените адрес -->
+          <p>г. Москва, ул. Технологическая, 42</p>
+          <p class="footer-hours">Пн–Пт: 9:00–20:00<br/>Сб–Вс: 10:00–18:00</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 NEXUSTECH. Все права защищены.</p>
+        <p>Разработано с ❤️ для вашего бизнеса</p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ========== PAGE: CATALOG ========== -->
+<div id="page-catalog" class="page">
+  <div class="page-hero page-hero--catalog">
+    <div class="container">
+      <h1>Каталог товаров</h1>
+      <p>Более 2000 позиций в наличии</p>
+    </div>
+  </div>
+  <div class="container catalog-layout">
+    <aside class="catalog-sidebar">
+      <h3>Категории</h3>
+      <div class="filter-group">
+        <button class="filter-btn active" data-cat="all" onclick="filterCatalog('all', this)">Все товары</button>
+        <button class="filter-btn" data-cat="gaming" onclick="filterCatalog('gaming', this)">Игровые ПК</button>
+        <button class="filter-btn" data-cat="laptop" onclick="filterCatalog('laptop', this)">Ноутбуки</button>
+        <button class="filter-btn" data-cat="monitor" onclick="filterCatalog('monitor', this)">Мониторы</button>
+        <button class="filter-btn" data-cat="gpu" onclick="filterCatalog('gpu', this)">Видеокарты</button>
+        <button class="filter-btn" data-cat="cpu" onclick="filterCatalog('cpu', this)">Процессоры</button>
+        <button class="filter-btn" data-cat="periphery" onclick="filterCatalog('periphery', this)">Периферия</button>
+        <button class="filter-btn" data-cat="accessories" onclick="filterCatalog('accessories', this)">Аксессуары</button>
+      </div>
+      <h3>Сортировка</h3>
+      <div class="filter-group">
+        <button class="filter-btn active" data-sort="default" onclick="sortCatalog('default', this)">По умолчанию</button>
+        <button class="filter-btn" data-sort="price-asc" onclick="sortCatalog('price-asc', this)">Цена: по возрастанию</button>
+        <button class="filter-btn" data-sort="price-desc" onclick="sortCatalog('price-desc', this)">Цена: по убыванию</button>
+      </div>
+    </aside>
+    <main class="catalog-main">
+      <div class="catalog-toolbar">
+        <span id="catalog-count">0 товаров</span>
+        <div class="catalog-search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" id="catalog-search" placeholder="Поиск в каталоге..." oninput="handleCatalogSearch(this.value)"/>
+        </div>
+      </div>
+      <div class="products-grid" id="catalog-grid"></div>
+    </main>
+  </div>
+</div>
+
+<!-- ========== PAGE: CART ========== -->
+<div id="page-cart" class="page">
+  <div class="page-hero">
+    <div class="container">
+      <h1>Корзина</h1>
+    </div>
+  </div>
+  <div class="container cart-layout" id="cart-layout">
+    <!-- Filled dynamically -->
+  </div>
+</div>
+
+<!-- ========== PAGE: CHECKOUT ========== -->
+<div id="page-checkout" class="page">
+  <div class="page-hero">
+    <div class="container">
+      <h1>Оформление заказа</h1>
+    </div>
+  </div>
+  <div class="container checkout-layout">
+    <div class="checkout-form-card">
+      <h3>Контактные данные</h3>
+      <div class="form-grid">
+        <div class="form-field">
+          <label>Имя *</label>
+          <input type="text" id="order-name" placeholder="Ваше имя" />
+        </div>
+        <div class="form-field">
+          <label>Телефон *</label>
+          <input type="tel" id="order-phone" placeholder="+7 (___) ___-__-__" />
+        </div>
+        <div class="form-field form-field--full">
+          <label>Адрес доставки *</label>
+          <input type="text" id="order-address" placeholder="Улица, дом, квартира" />
+        </div>
+        <div class="form-field form-field--full">
+          <label>Комментарий к заказу</label>
+          <textarea id="order-comment" rows="3" placeholder="Дополнительная информация..."></textarea>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-wide" onclick="submitOrder()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        Оформить заказ
+      </button>
+    </div>
+    <div class="checkout-summary" id="checkout-summary">
+      <!-- Filled dynamically -->
+    </div>
+  </div>
+</div>
+
+<!-- ========== PAGE: SUCCESS ========== -->
+<div id="page-success" class="page">
+  <div class="container success-page">
+    <div class="success-icon">
+      <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    </div>
+    <h2>Заказ успешно оформлен!</h2>
+    <p>Спасибо за ваш заказ. Наш менеджер свяжется с вами в течение 15 минут для подтверждения.</p>
+    <p class="success-order-id" id="success-order-id"></p>
+    <button class="btn btn-primary" onclick="showPage('home')">Вернуться на главную</button>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
